@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/app.js" defer type="module"></script>
+    <script src="./js/main.js" defer></script>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Contatos</title>
+</head>
+<body>
+    <main>
+        <div class="forms-container">
+            <div class="title-forms-container">
+                <h1>Formulário de Cadastro de Contato</h1> 
+            </div>
+             
+    
+            <div class="formulario">
+                <div>
+                    <div class="info-container">
+                        <label for="inp-nome">Nome</label>
+                        <input type="text" id="inp-nome">
+                    </div>
+                    <div class="info-container">
+                        <label for="inp-cel">Celular</label>
+                        <input type="tel" id="inp-cel">
+                    </div>
+                    <div class="info-container">
+                        <label for="inp-foto">Foto</label>
+                        <input type="text" id="inp-foto">
+                    </div>
+                </div>
+    
+                <div>
+                    <div class="info-container">
+                        <label for="inp-email">Email</label>
+                        <input type="email" id="inp-email">
+                    </div>
+                    <div class="info-container">
+                        <label for="inp-endereco">Endereço</label>
+                        <input type="text" id="inp-endereco">
+                    </div>
+                    <div class="info-container">
+                        <label for="inp-cidade">Cidade</label>
+                        <input type="text" id="inp-cidade">
+                    </div>
+                </div>
+            </div>
+            <button id="btn-salvar">Salvar</button>
+        </div>
+        
+        <div class="table-container" >
+            <table id="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Foto</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+    
+                </tbody>
+            </table>
+        </div>
+    </main>
+    
+</body>
+</html>

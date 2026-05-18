@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+body{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    background-color: #0f0f17;
+}
+
+main{  
+    background-color: #666666;
+    color: #ffff;
+    margin-top: 10%;
+    border-radius: 5px;
+    justify-items: center;
+}
+
+input{
+    border: none;
+    padding: 2px;
+    padding-inline: 10px;
+    border-radius: 2px;
+}
+
+
+.forms-container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 250px;
+    min-height: 260px;
+    padding: 20px;
+}
+
+.title-forms-container{
+    color: #fff;
+}
+
+.formulario{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+}
+
+.info-container{
+    display: flex;
+    flex-direction: column;
+}
+
+#btn-salvar{
+    padding-block: 12px;
+    padding-inline: 10%;
+    border:none;
+    border-radius: 2px;
+    background-color: #5A05D5;
+    color: #fff;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    text-align: center;
+    padding: 8px;
+}
+
+
+
+.table-container{
+    width: 100%;
+}
