@@ -84,8 +84,8 @@ async function registrarContato() {
 
     let validar = validarCampos()
 
-    if (validar) {
-        return validar
+    if (!validar) {
+        return window.alert("Preencha todos os campos")
     }
 
     let contato = {
@@ -112,9 +112,12 @@ function limparCampos() {
 }
 
 async function excluirContato(id) {
-    await deleteContato(id)
+    let confirm = window.confirm("Deseja mesmo excluir?")
 
-    await atualizarTabela()
+    if (confirm) {
+        await deleteContato(id)
+        await atualizarTabela()  
+    }  
 }
 
 async function atualizarContato(id) {
