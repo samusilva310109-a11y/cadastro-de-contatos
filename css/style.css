@@ -73,6 +73,15 @@ label{
     color: #fff;
 }
 
+.btn-atualizar{
+    padding-block: 12px;
+    padding-inline: 50px;
+    border:none;
+    border-radius: 5px;
+    background-color: #ced505;
+    color: #050505; 
+}
+
 
 
 /* Tabela */

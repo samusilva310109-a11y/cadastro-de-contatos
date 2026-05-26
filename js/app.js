@@ -1,6 +1,6 @@
 'use strict'
 
-import { getContatos, getContato, postContato, putContato, deleteContato } from "./contatos.js"
+import { getContatos, postContato, putContato, deleteContato, getContato } from "./contatos.js"
 
 function criarLinha(contato) {
     const tableBody = document.getElementById('table-body')
@@ -35,9 +35,9 @@ function criarLinha(contato) {
     editAction.addEventListener('click', () => atualizarContato(contato.id))
 
     let deleteAction = document.createElement('button')
-    deleteAction.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>` 
+    deleteAction.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>`
     deleteAction.addEventListener('click', () => excluirContato(contato.id))
-  
+
     let actionCell = document.createElement('td')
     actionCell.appendChild(editAction)
     actionCell.appendChild(deleteAction)
@@ -84,24 +84,22 @@ async function registrarContato() {
 
     let validar = validarCampos()
 
-    if (!validar) {
-        window.alert("Preencha todos os campos")
-    }else{
-        let contato = {
-            nome: document.getElementById('inp-nome').value.trim(),
-            celular: document.getElementById('inp-cel').value.trim(),
-            foto: document.getElementById('inp-foto').value.trim(),
-            email: document.getElementById('inp-email').value.trim(),
-            endereco: document.getElementById('inp-endereco').value.trim(),
-            cidade: document.getElementById('inp-cidade').value.trim()
-        }
-
-        limparCampos()
-        await postContato(contato)
-        atualizarTabela()
+    if (validar) {
+        return validar
     }
 
-    
+    let contato = {
+        nome: document.getElementById('inp-nome').value.trim(),
+        celular: document.getElementById('inp-cel').value.trim(),
+        foto: document.getElementById('inp-foto').value.trim(),
+        email: document.getElementById('inp-email').value.trim(),
+        endereco: document.getElementById('inp-endereco').value.trim(),
+        cidade: document.getElementById('inp-cidade').value.trim()
+    }
+
+    limparCampos()
+    await postContato(contato)
+    atualizarTabela()
 }
 
 function limparCampos() {
@@ -120,25 +118,60 @@ async function excluirContato(id) {
 }
 
 async function atualizarContato(id) {
-    let contato = {
-        nome: document.getElementById('inp-nome').value.trim(),
-        celular: document.getElementById('inp-cel').value.trim(),
-        foto: document.getElementById('inp-foto').value.trim(),
-        email: document.getElementById('inp-email').value.trim(),
-        endereco: document.getElementById('inp-endereco').value.trim(),
-        cidade: document.getElementById('inp-cidade').value.trim()
+    const btnContainer = document.getElementById('btn-container')
+    const btnSalvar = document.getElementById('btn-salvar')
+    const btnAtualizar = craiarBotaoAtualizar()
+    btnContainer.replaceChildren(btnAtualizar)
+
+    
+    let buscaContato = await getContato(id)
+   
+    if (!buscaContato) {
+        return false
     }
 
-    limparCampos()
+    
 
-    await putContato(id, contato)
+    document.getElementById('inp-nome').value = buscaContato.nome
+    document.getElementById('inp-cel').value = buscaContato.celular
+    document.getElementById('inp-foto').value = buscaContato.foto
+    document.getElementById('inp-email').value = buscaContato.email
+    document.getElementById('inp-endereco').value = buscaContato.endereco
+    document.getElementById('inp-cidade').value = buscaContato.cidade
 
-    await atualizarTabela()
+   
+
+    btnAtualizar.addEventListener('click', async () => {
+        if(!validarCampos()){
+            return window.alert('Preencha todos os campos')
+        }
+        
+        let contato = {
+            nome: document.getElementById('inp-nome').value.trim(),
+            celular: document.getElementById('inp-cel').value.trim(),
+            foto: document.getElementById('inp-foto').value.trim(),
+            email: document.getElementById('inp-email').value.trim(),
+            endereco: document.getElementById('inp-endereco').value.trim(),
+            cidade: document.getElementById('inp-cidade').value.trim()
+        }
+
+        await putContato(id, contato)
+        limparCampos()
+        await atualizarTabela()
+
+        btnContainer.replaceChildren(btnSalvar)
+    })
+
 }
-document.getElementById('btn-salvar').addEventListener('click',registrarContato)
+
+
+function craiarBotaoAtualizar() {
+    const btnAtualizar = document.createElement('button')
+    btnAtualizar.textContent = 'Atualizar'
+    btnAtualizar.className = 'btn-atualizar'
+
+    return btnAtualizar
+}
+
+document.getElementById('btn-salvar').addEventListener('click', registrarContato)
 atualizarTabela()
-
-
-
-
-
